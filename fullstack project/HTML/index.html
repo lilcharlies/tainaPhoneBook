@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/index.css">
+    <link rel="stylesheet" href="../CSS/modals.css">
+    <script defer src="../JavaScript/overlays.js"></script>
+    <script defer src="../JavaScript/index.js"></script>
+    <title>Phone Book</title>
+</head>
+<body>
+    <header>
+        <h1>Phone Book</h1>
+    </header>
+    <main>
+
+
+
+        
+        <section class="sec1" id="charlie">
+            <form class="search">
+                <input class="srcbar" type="search" placeholder="Search..">
+                <input class="srcimg" type="image" src="../imges/search.png" width="15px">
+            </form>
+
+
+            <div class="iconWrapper">
+            <div class="img">
+            <img src="../imges/contact.png" alt="contact" id="add">
+            </div>
+            <div class="img">
+            <img src="../imges/trash.png" alt="trash" id="delAll">
+            </div>
+            <div class="img">
+            <img src="../imges/floppy-disk.png" alt="save" id="savebtn">
+            </div>
+            </div>
+        </section>
+
+
+
+        <section class="sec2">
+            <div class="items_list">
+            </div>  
+        </section>
+
+
+
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="wrapper">
+                <div class="modal-content">
+                <span class="close" id="close">&times;</span>
+                <p class="create">Create Contact</p>
+
+              <form class="addContactForm">
+                <p class="item">Name *</p>
+                <input class="item" type="text" placeholder="ex. charlie" id="name">
+                <p class="item">Telephone *</p>
+                <input class="item" type="number" placeholder="0526575243" id="number">
+                <p class="item">Address</p>
+                <input class="item" type="text" placeholder="Wall St." id="address">
+                <p class="item">Email</p>
+                <input class="item" type="text" placeholder="charlywarwar@gmail.com" id="email">
+                <p class="item">Description</p>
+                <textarea placeholder="My friend" class="item" name="desc" id="desc" cols="50" rows="5" id="desc"></textarea>
+                <input class="item1" type="submit" value="Send">
+              </form>
+
+              </div>
+            </div>
+          </div>
+
+          <div id="myModal2" class="modal">
+            <!-- Modal content -->
+            <div class="wrapper">
+                <div class="modal-content">
+                <span class="close1" id="close2">&times;</span>
+                <p class="create">Contact Details</p>
+                <div class="descContainer">
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        
+    </main>
+    
+</body>
+</html>

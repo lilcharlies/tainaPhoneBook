@@ -1,0 +1,84 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  html {
+    font-size: 62.5%;
+    font-weight: 700;
+  }
+  
+  /*TypoGraphy*/
+  body {
+    font-size: 1.5rem;
+    font-family: 'Nunito', sans-serif;
+    /*Styling*/
+    min-height: 100vh;
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+
+  main{
+    box-shadow: 5px 5px 5px 5px grey;
+    width: 70%;
+  }
+  h1{
+    padding-bottom: 2em;
+  }
+  .sec1{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 2em;
+  }
+
+  .srcbar{
+    padding: 0.5em;
+  }
+   img{
+    width: 100%;
+    display: block;
+    max-width: 20px;
+  }
+  input[type=image]{
+      position: absolute;
+      margin-left: 2px;
+      margin-top: 9px;
+  }
+
+  .img{
+      padding-left: 2em;
+  }
+  .iconWrapper{
+    display: flex;
+    margin-left: auto;
+    flex-direction: row;
+  }
+
+  .listWrapper{
+    border-top: grey 1px solid;
+    display: flex;
+    padding: 1em;
+  }
+  .listinfo{
+    width: 100%;
+  }
+
+  .imgcont{
+    display: flex;
+  }
+  .imgcont .cont{
+   padding-left:0.4em;
+  }
+  .listinfo{
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+  
+
