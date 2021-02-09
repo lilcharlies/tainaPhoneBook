@@ -15,13 +15,13 @@ function template(data){
   var className = data.name.replace(" ", "");
   return `
     <section class="${className}">
-    <div class="listWrapper" id="${className}"  onclick="addDesc('${className}')">
-    <div class="listinfo">
+    <div class="listWrapper" id="${className}">
+    <div class="listinfo" onclick="addDesc('${className}')">
      <span>${data.name}</span>
      <span>${data.number}</span>
     </div>
      <div class="imgcont">
-        <div class="cont" onclick='deleteContact("${className}")'><img src="../imges/trash.png" alt="trash"></div>
+        <div class="cont" onclick="deleteContact('${className}')"><img src="../imges/trash.png" alt="trash"></div>
         <div class="cont"><img src="../imges/edit.png" alt="edit"></div>
     </div>
     </div>
@@ -36,7 +36,7 @@ for (let i = 0; i < localStorage.length;i++){
   contactList.innerHTML += template(JSON.parse(saved));
 }
 
-function deletecontact(ke){
+function deleteContact(ke){
   document.getElementsByClassName(ke)[0].innerHTML = '';
   localStorage.removeItem(ke);
 }
@@ -46,8 +46,6 @@ function deletecontact(ke){
 
 //event listener too the send button to get the data the user entered and put it in the localstorae
 submit.addEventListener('click',addContact,false);
-
-let contactArray = Array();
 
 
 function addContact(e){
@@ -59,12 +57,12 @@ function addContact(e){
         email : Email.value,
         desc : Desc.value
     }
-    contactArray.push(data);
+
     
     e.preventDefault();
     if(data.name == "" || data.number == "") return;
     
-    //var htmlString = template(data);
+
     var keyName = data.name.replace(" ","");
     localStorage.setItem(keyName,JSON.stringify(data));
     contactList.innerHTML +=template(data);
@@ -77,7 +75,7 @@ function addContact(e){
     Desc.value = "";
   }
 
-  //delte all ocntact function
+  //delte all contact function
   function delAllContact(e){
     contactList.remove();
     e.stopImmediatePropagation();
@@ -112,10 +110,7 @@ function keysInStorage(value){
 const myModal2 = document.getElementById("myModal2");
 const close2 = document.getElementById("close2");
 
-if(document.querySelectorAll(".listWrapper")){
-  console.log(document.querySelectorAll(".listWrapper"));
-//document.querySelectorAll(".listWrapper")[0].style.display = "block";
-}
+const listWrapper = document.querySelectorAll(".listWrapper");
 
 
 close2.onclick = function(){
@@ -123,23 +118,16 @@ close2.onclick = function(){
 }
 
 
-//const descContainer = document.getElementsByClassName("descContainer")[0];
+const descContainer = document.getElementsByClassName("descContainer")[0];
 
 function addDesc(name){
 
-    // for(let i=0; i < listWrapper.length;i++){
-    //   listWrapper[i].style.display = "block";
-    //  }
-
-  var details = localStorage.getItem(localStorage.key(name));
+  myModal2.style.display = "block";
+  var details = localStorage.getItem(name);
   details = JSON.parse(details);
-
-  
   descContainer.innerHTML = desctamplate(details);
-  console.log(descContainer);
 
 }
-
 
 function desctamplate(details){
   return `
