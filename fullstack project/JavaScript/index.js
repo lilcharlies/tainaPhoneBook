@@ -9,6 +9,7 @@ const Email = document.getElementById("email");
 const Desc = document.getElementById("desc");
 const submit = document.querySelector('.item1');
 const contactList = document.querySelector('.items_list');
+const search = document.getElementById("search");
 
 
 function template(data){
@@ -16,30 +17,47 @@ function template(data){
   return `
     <section class="${className}">
     <div class="listWrapper" id="${className}">
-    <div class="listinfo" onclick="addDesc('${className}')">
+    <div class="listinfo">
      <span>${data.name}</span>
      <span>${data.number}</span>
     </div>
      <div class="imgcont">
-        <div class="cont" onclick="deleteContact('${className}')"><img src="../imges/trash.png" alt="trash"></div>
-        <div class="cont"><img src="../imges/edit.png" alt="edit"></div>
+        <div class="deleteCont"><img src="../imges/trash.png" alt="trash"></div>
+        <div class="editCont"><img src="../imges/edit.png" alt="edit"></div>
     </div>
     </div>
     </section>
     `;
 
-}
+  }
 
-//get data from local storage to inject it into html
-for (let i = 0; i < localStorage.length;i++){
-  const saved = localStorage.getItem(localStorage.key(i));
-  contactList.innerHTML += template(JSON.parse(saved));
-}
+  
+  
+  function localstoraeKeys(){
+    let arr = new Array();
+    for(var key in localStorage){
+      arr.push(key);
+    }
+    return arr;
+  }
+  
+  //get data from local storage to inject it into html
+  for (let i = 0; i < localStorage.length;i++){
+    const saved = localStorage.getItem(localStorage.key(i));
+    contactList.innerHTML += template(JSON.parse(saved));
+    }
 
-function deleteContact(ke){
-  document.getElementsByClassName(ke)[0].innerHTML = '';
-  localStorage.removeItem(ke);
-}
+  search.addEventListener('keyup', function (e) {
+    let searchValue = e.target.value.toLowerCase();
+    searchValue.replace(" ","");
+    const span = document.querySelectorAll('.listWrapper');
+    
+    for (let i = 0; i < span.length; i++) {
+      if (!span[i].innerHTML.toLowerCase().includes(searchValue)) {
+        span[i].style.display = 'none';
+      }
+    }
+  });
 
 
 
@@ -110,8 +128,7 @@ function keysInStorage(value){
 const myModal2 = document.getElementById("myModal2");
 const close2 = document.getElementById("close2");
 
-const listWrapper = document.querySelectorAll(".listWrapper");
-
+const descBtn = document.querySelectorAll(".listWrapper");
 
 close2.onclick = function(){
   myModal2.style.display = "none";
@@ -120,30 +137,144 @@ close2.onclick = function(){
 
 const descContainer = document.getElementsByClassName("descContainer")[0];
 
-function addDesc(name){
 
-  myModal2.style.display = "block";
-  var details = localStorage.getItem(name);
-  details = JSON.parse(details);
-  descContainer.innerHTML = desctamplate(details);
 
+
+
+if(descBtn != null){
+  for(let i=0; i < descBtn.length;i++)
+  descBtn[i].addEventListener('click',addDesc);
 }
+function addDesc(e){
+  for (var key in localStorage){
+    if(key == e.path[3].className){
+      console.log(1);
+      myModal2.style.display = "block";
+      var details = localStorage.getItem(e.path[3].className);
+      details = JSON.parse(details);
+      descContainer.innerHTML = desctamplate(details);
+    }
+  }
+}
+
+// function addDesc(name){
+
+//   myModal2.style.display = "block";
+//   var details = localStorage.getItem(name);
+//   details = JSON.parse(details);
+//   descContainer.innerHTML = desctamplate(details);
+
+// }
 
 function desctamplate(details){
   return `
-    <section>
-    <div class="listWrapper">
-    <div class="listinfo">
-     <span>${details.name}</span>
-     <span>${details.number}</span>
-    </div>
-    </div>
-    </section>
+  <h1>${details.name}</h1>
+  <div class="detailCont">
+  <p>tel:</p>
+  <p>${details.number}</p>
+  <p>address:</p>
+  <p>${details.address}</p>
+  <p>email:</p>
+  <p>${details.email}</p>
+  <p>description:</p>
+  <p>${details.desc}</p>
+  </div>
     `;
 }
 
 
 
+
+
+//!!!!!!!!!!!!!!!!!!!!       Edit section       !!!!!!!!!!!!!!!!!
+const Name2 = document.getElementById("name2");
+const Number2 = document.getElementById("number2");
+const Address2 = document.getElementById("address2");
+const Email2 = document.getElementById("email2");
+const Desc2 = document.getElementById("desc2");
+const close3 = document.getElementById("close3");
+const update = document.getElementById("update");
+const editbtn = document.querySelectorAll(".editCont");
+
+
+
+if(editbtn != null){
+  for(let i=0; i < editbtn.length;i++)
+editbtn[i].addEventListener('click',editContact);
+}
+function editContact(e){
+  for (var key in localStorage){
+    if(key == e.path[3].id){
+      const editModal = document.getElementById("editModal");
+  close3.onclick = function() {
+    editModal.style.display = "none";
+  }
+  
+  var details = localStorage.getItem(e.path[3].id);
+  details = JSON.parse(details);
+  Name2.value = details.name;
+  Number2.value = details.number;
+  Address2.value = details.address;
+  Email2.value = details.email;
+  Desc2.value = details.desc;
+  editModal.style.display = "block";
+  update.onclick = function(){
+    const data ={
+      name : Name2.value,
+      number : Number2.value,
+      address : Address2.value,
+      email : Email2.value,
+      desc : Desc2.value
+  }
+  for (var key in localStorage){
+    if(key == e.path[3].id)
+    localStorage.removeItem(e.path[3].id);
+    var keyName = data.name.replace(" ","");
+    localStorage.setItem(keyName,JSON.stringify(data));
+  }
+  }
+
+
+    }
+  }
+}
+
+
+
+
+
+// function editContact(name){
+//   // const editModal = document.getElementById("editModal");
+//   // close3.onclick = function() {
+//   //   editModal.style.display = "none";
+//   // }
+  
+//   // var details = localStorage.getItem(name);
+//   // details = JSON.parse(details);
+//   // Name2.value = details.name;
+//   // Number2.value = details.number;
+//   // Address2.value = details.address;
+//   // Email2.value = details.email;
+//   // Desc2.value = details.desc;
+//   // editModal.style.display = "block";
+//   // update.onclick = function(){
+//   //   const data ={
+//   //     name : Name2.value,
+//   //     number : Number2.value,
+//   //     address : Address2.value,
+//   //     email : Email2.value,
+//   //     desc : Desc2.value
+//   // }
+//   // for (var key in localStorage){
+//   //   if(key == name)
+//   //   localStorage.removeItem(name);
+//   //   var keyName = data.name.replace(" ","");
+//   //   localStorage.setItem(keyName,JSON.stringify(data));
+//   // }
+//   // }
+
+
+// }
 
 
 //!!!!!!!!!!!!!!!!!    Add contact modal overlay     !!!!!!!!!!!!!!!!!!
@@ -171,9 +302,19 @@ close.onclick = function() {
 
 btn.onclick = function() {
   modal.style.display = "none";
-  //location.reload();
 }
 
-
-
+const delbtn = document.querySelectorAll(".deleteCont");
+if(delbtn != null){
+  for(let i=0; i < delbtn.length;i++)
+delbtn[i].addEventListener('click',delCotact);
+}
+function delCotact(e){
+  for (var key in localStorage){
+    if(key == e.path[3].id){
+    localStorage.removeItem(key);
+    e.path[3].remove();
+    }
+  }
+}
 
