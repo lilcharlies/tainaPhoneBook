@@ -30,6 +30,7 @@
   }
   h1{
     padding-bottom: 2em;
+    text-align: center;
   }
   .sec1{
     display: flex;
@@ -73,12 +74,10 @@
   .imgcont{
     display: flex;
   }
-  .imgcont .cont{
-   padding-left:0.4em;
+  .imgcont .editCont{
+   padding-left:1em;
   }
   .listinfo{
     display: grid;
     grid-template-columns: auto auto;
   }
-  
-

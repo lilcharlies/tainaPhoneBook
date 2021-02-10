@@ -68,10 +68,14 @@
   .item1{
     grid-column: 1 / span 2;
   }
-
-  .descContainer{
-    padding: 2em;
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-gap: 40px;
+  .detailCont{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .detailCont > p {
+    flex: 0 50%;
+  }
+  p{
+    padding: 1em;
   }
